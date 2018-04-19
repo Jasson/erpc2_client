@@ -1,0 +1,10 @@
+2018-04-15 07:55:30.680 [error] <0.150.0>@erpc2_client_server:tcp_recv:92 Reason = {error,enotconn}
+2018-04-15 07:55:40.686 [error] <0.150.0>@erpc2_client_server:tcp_recv:92 Reason = {error,enotconn}
+2018-04-15 07:55:50.686 [error] <0.150.0>@erpc2_client_server:tcp_recv:92 Reason = {error,enotconn}
+2018-04-15 07:56:00.687 [error] <0.150.0>@erpc2_client_server:tcp_recv:92 Reason = {error,enotconn}
+2018-04-15 13:10:49.522 [error] <0.150.0>@erpc2_client_server:tcp_recv:92 Reason = {error,enotconn}
+2018-04-15 13:10:59.523 [error] <0.150.0>@erpc2_client_server:tcp_recv:92 Reason = {error,enotconn}
+2018-04-15 13:11:09.524 [error] <0.150.0>@erpc2_client_server:tcp_recv:92 Reason = {error,enotconn}
+2018-04-15 13:11:19.525 [error] <0.150.0>@erpc2_client_server:tcp_recv:92 Reason = {error,enotconn}
+2018-04-15 21:26:11.553 [error] <0.150.0>@erpc2_client_server:tcp_recv:92 Reason = {error,enotconn}
+2018-04-15 21:26:21.554 [error] <0.150.0>@erpc2_client_server:tcp_recv:92 Reason = {error,enotconn}

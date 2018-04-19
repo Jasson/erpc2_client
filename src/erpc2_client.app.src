@@ -1,0 +1,12 @@
+{application, erpc2_client,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { erpc2_client_app, []}},
+  {env, []}
+ ]}.
