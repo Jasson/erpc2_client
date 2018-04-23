@@ -69,8 +69,12 @@ handle_cast(Msg, State) ->
 handle_info(timeout, #state{conn = Conn} = State) ->
     lager:debug("Info = ~p", [timeout]),
     tcp_client:keepalive_sock(Conn),
-    Reply = tcp_recv(Conn),
-    lager:debug("keepalive= ~p", [Reply]),
+    case tcp_recv(Conn) of
+        {error, Reason} ->
+            lager:error("Reason = ~p", [{error, Reason}]);
+        Reply -> 
+        lager:debug("keepalive= ~p", [Reply])
+    end,
     {noreply, State, ?K_TIMEOUT};
 
 handle_info(Info, State) ->
