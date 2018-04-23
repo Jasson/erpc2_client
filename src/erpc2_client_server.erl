@@ -49,7 +49,7 @@ init(Args) ->
     %Conn = tcp_client:connect(Ip, Port),
     Conn = tcp_client:get_sock(Ip, Port),
     Reply = tcp_recv(Conn),
-    lager:debug("check_auth= ~p", [Reply]),
+    lager:debug("check_auth= ~p, Conn = ~p", [Reply, Conn]),
     State = #state{conn=Conn},
     gen_server:enter_loop(?MODULE, [], State, ?K_TIMEOUT).
 
