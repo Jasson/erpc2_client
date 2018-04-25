@@ -14,6 +14,7 @@
 -record(state, {conn}).
 -include_lib("eunit/include/eunit.hrl").
 -define(K_TIMEOUT, 10000).
+-define(READ_TIMEOUT,2500). % 2.5 sec  
 
 %% ------------------------------------------------------------------
 %% gen_server Function Exports
@@ -27,8 +28,8 @@
 %% ------------------------------------------------------------------
 
 start_link() ->
-    %%gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
-     proc_lib:start_link(?MODULE, init, []).
+    gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
+    % proc_lib:start_link(?MODULE, init, []).
 
 start_link(Args) ->
     lager:debug("Args = ~p", [Args]),
@@ -90,7 +91,7 @@ code_change(_OldVsn, State, _Extra) ->
 
 
 tcp_recv(Conn) -> 
-    case gen_tcp:recv (Conn, 0, 30000) of                 
+    case gen_tcp:recv (Conn, 0, ?READ_TIMEOUT) of                 
         {ok, Binary} -> decode(Binary);
         {error, Reason} -> 
             lager:error("Reason = ~p", [{error, Reason}]),

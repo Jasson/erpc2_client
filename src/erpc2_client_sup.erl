@@ -31,7 +31,7 @@ init([]) ->
     lager:debug("Pools = ~p", [Pools]),
     PoolSpecs = lists:map(fun({Name, SizeArgs, WorkerArgs}) ->
         PoolArgs = [{name, {local, Name}},
-                    {worker_module, erpc2_client_server}] ++ SizeArgs,
+                    {worker_module, erpc2_client}] ++ SizeArgs,
         poolboy:child_spec(Name, PoolArgs, WorkerArgs)
     end, Pools),
     lager:debug("PoolSpecs = ~p", [PoolSpecs]),

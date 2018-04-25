@@ -19,6 +19,8 @@
          auth/0,
          client/2]).
 
+-define(SEND_TIMEOUT,5000).  
+
 client() ->
     client(5554, [{<<"title">>, <<"hisss">>}]).
 
@@ -73,8 +75,10 @@ connect(Ip, Port) ->
 
 get_sock(Ip, Port) ->
     {ok, Sock} = gen_tcp:connect(Ip, Port, [{active, false},
-    %{ok, Sock} = gen_tcp:connect(Ip, Port, [{active, true},
+   %{ok, Sock} = gen_tcp:connect(Ip, Port, [{active, true},
                                             binary,
+                                            {send_timeout, ?SEND_TIMEOUT},
+                                            {keepalive, true},
                                             {packet, 2}]),
     %Msg = [{<<"title">>, <<"hisss">>}],
     %gen_tcp:send(Sock, encode(Msg)),
