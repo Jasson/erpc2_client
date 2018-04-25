@@ -7,7 +7,7 @@
 %% ------------------------------------------------------------------
 
 -export([start_link/1,
-         squery/2
+         squery/2,
          squery/3
         ]).
 
@@ -16,13 +16,6 @@
 -define(K_TIMEOUT, 60000).
 -define(READ_TIMEOUT,2500). % 2.5 sec  
 -record(state, {sock, receiver, timeout = ?TIMEOUT}).
-
-
--%test  {now(),erpc2_client:squery(io,format, ["~p~n", [now()]])}.
-squery(M, F, A) ->
-    erpc2_client:squery(pool1,{M, F, A}).
-
-
 
 
 %% ------------------------------------------------------------------
@@ -36,7 +29,12 @@ squery(M, F, A) ->
 %% API Function Definitions
 %% ------------------------------------------------------------------
 
-    % proc_lib:start_link(?MODULE, init, []).
+%test  {now(),erpc2_client:squery(io,format, ["~p~n", [now()]])}.
+squery(M, F, A) ->
+    erpc2_client:squery(pool1,{M, F, A}).
+
+
+
 
 start_link(Args) ->
     lager:debug("Args = ~p", [Args]),
