@@ -31,7 +31,9 @@
 
 %test  {now(),erpc2_client:squery(io,format, ["~p~n", [now()]])}.
 squery(M, F, A) ->
-    erpc2_client:squery(pool1,{M, F, A}).
+    [{_N, Pid}] = erpc2_client_sup:get_tcp_sock(),
+    erpc2_client:squery(Pid,{M, F, A}).
+   % erpc2_client:squery(pool1,{M, F, A}).
 
 
 

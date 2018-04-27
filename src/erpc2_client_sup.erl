@@ -4,6 +4,8 @@
 
 %% API
 -export([start_link/0]).
+-export([init_pool/0,
+         get_tcp_sock/0]).
 
 %% Supervisor callbacks
 -export([init/1]).
@@ -46,4 +48,24 @@ equery(PoolName, Stmt, Params) ->
     poolboy:transaction(PoolName, fun(Worker) ->
         gen_server:call(Worker, {equery, Stmt, Params})
     end).
+
+
+init_pool() ->
+    ets:new(tcp_pool,[set,named_table,public]),
+    Num = application:get_env(erpc2_client, tcp_pool_size, 10),
+    F = fun(N) ->
+                {ok, Pid} = erpc2_client:start_link([]),
+                ets:insert(tcp_pool, {N, Pid})
+        end,     
+    [F(N)|| N<- lists:seq(0, Num)].
+
+get_tcp_sock() ->
+    Num = application:get_env(erpc2_client, tcp_pool_size, 10),
+    rand:seed(exs64, os:timestamp()),
+    N = rand:uniform(Num),
+    ets:lookup(tcp_pool, N).
+
+
+
+
 
