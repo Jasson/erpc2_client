@@ -37,7 +37,8 @@ init([]) ->
         poolboy:child_spec(Name, PoolArgs, WorkerArgs)
     end, Pools),
     lager:debug("PoolSpecs = ~p", [PoolSpecs]),
-    {ok, {{one_for_one, 10, 10}, PoolSpecs}}.
+    PoolSpecs1 = [],
+    {ok, {{one_for_one, 10, 10}, PoolSpecs1}}.
 
 squery(PoolName, Sql) ->
     poolboy:transaction(PoolName, fun(Worker) ->

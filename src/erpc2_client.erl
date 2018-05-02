@@ -32,8 +32,11 @@
 %test  {now(),erpc2_client:squery(io,format, ["~p~n", [now()]])}.
 squery(M, F, A) ->
     [{_N, Pid}] = erpc2_client_sup:get_tcp_sock(),
-    erpc2_client:squery(Pid,{M, F, A}).
+   % erpc2_client:squery(Pid,{M, F, A}).
    % erpc2_client:squery(pool1,{M, F, A}).
+    R = erpc2_client:squery(Pid,{M, F, A}),
+    lager:debug("squery R = ~p",[R]),
+    R.
 
 
 
@@ -120,7 +123,8 @@ tcp_recv(#state{receiver = Receiver, timeout = Timeout}) ->
     end.
 
 squery(Pid, Data) when is_pid(Pid) -> 
-    gen_server:call(Pid, {squery, Data});
+    %gen_server:call(Pid, {squery, Data});
+    gen_server:call(Pid, {squery, Data}, infinity);
 squery(PoolName, Data) ->
     poolboy:transaction(PoolName, fun(Worker) ->
                                             gen_server:call(Worker, {squery, Data})
